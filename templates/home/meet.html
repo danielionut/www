@@ -1,0 +1,83 @@
+<ion-view title="">
+  <ion-nav-title>
+    <div class="navigation-bar">
+        <div class="navigation-bar__primary" ng-click="goTo('home.menu','right');">
+            <div class="navigation-bar__icon js-navigation" >
+              <i class="icon-svg ion-navicon-round" ></i>
+              <span class="navigation-bar__menu-notification" ng-if="notificationMenu"></span>
+            </div>
+        </div>
+			<div class="navigation-bar__title" data-qa="navbar-title"><span class="js-title">{{check}}</span></div>
+        <div class="navigation-bar__secondary">
+        	
+            <div class="navigation-bar__icon js-navigation" ui-sref="home.settings" style="margin-right: 15px;">
+              <i class="icon-svg ion-levels" ></i>
+            </div>        	
+        </div>
+    </div> 
+  
+</ion-nav-title>
+<ion-content style="background:#fff" scroll="true">
+
+            <div class="page-content js-content">
+                <div class="users-folder users-folder--chess  js-content-item" >
+                    <div class="users-folder__list">
+
+ 
+
+                        <div class="users-folder__item qa-profile-item" ng-repeat="p in meet track by $index">
+                            <div class="brick-wrapper js-user-avatar fadeInUp" ng-click="openProfileModal({{p.id}},'{{p.name}}','{{p.photo}}',{{p.age}},'{{p.city}}')">
+                                <div class="brick brick--lg">
+                                    <div class="brick__image meetUser meetUser-{{p.show}}">
+                                    <img class="js-user-image" src="{{p.photo}}" alt=""></div>
+                                </div>
+                                <div class="brick__name meetUser meetUser-{{p.show}}"><span class="brick__name_ comforta">{{p.name}}</span><div class="online" ng-if="p.status == 1" style="width:8px;height:8px"></div></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+                <div class="people-nearby-banner js-people-nearby-banner" data-index="0">
+                    <div class="people-nearby-banner__curve"></div>
+                    <div class="cta-box">
+                        <div class="cta-box__content">
+                            <div class="brick-group brick-group--promo">
+                                <div class="brick brick--sm">
+                                    <div class="brick__image" style="background-image: url('img/gata0.jpg')"></div>
+                                </div>
+                                <div class="brick">
+                                    <div class="brick__image" style="background-image: url('{{me.profile_photo}}')"></div>
+                                </div>
+                                <div class="brick brick--sm">
+                                    <div class="brick__image" style="background-image: url('img/gata1.jpg')"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cta-box__content">{{alang[198].text}}<b> Montevideo</b>.</div>
+                        <div class="cta-box__buttons">
+                            <div class="button-wrapper">
+                                <button class="button button--riseup  js-button js-touchable qa-button">
+                                    <div class="button__content"><span class="button__text comforta" style="color:#fff">{{alang[199].text}}</span></div></button>
+                            </div>
+                        </div>
+                        <div class="cta-box__additional hidden"></div>
+                    </div>
+                </div>
+				<ion-infinite-scroll immediate-check="false" on-infinite="loadMore()" distance="5%">
+				</ion-infinite-scroll>
+			  <div ng-show="loadMores.length == 0" vertical layout center flex >
+				<div class="text-muted text-center l-h comforta" style="margin-top:50px;">
+				  {{alang[117].text}}
+				  <br>
+				  <a href="#" ui-sref="home.settings" >{{alang[118].text}}</a>
+				</div>
+			  </div>
+        </div>
+    </div>
+</div>
+
+</ion-content>
+</ion-view>

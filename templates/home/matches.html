@@ -1,0 +1,186 @@
+<ion-view title="">
+  <ion-nav-title >
+    <div class="navigation-bar  navigation-bar--no-shadow  has-wide-sides ">
+        <div class="navigation-bar__primary">
+            <div class="navigation-bar__icon js-navigation" ng-click="goTo('home.menu','right');" >
+              <i class="icon-svg ion-navicon-round"></i>
+              
+            </div>
+        </div>
+        <div class="navigation-bar__title comforta" data-qa="navbar-title">{{alang[188].text}}</div>
+        <div class="navigation-bar__secondary"></div>     
+    </div>    
+  </ion-nav-title>
+ 
+
+<div class="floating-action js-contact-list-actions-verified" style="display: none;">
+    <div class="cta-box">
+        <div class="cta-box__content">{{alang[189].text}}.</div>
+        <div class="cta-box__buttons">
+            <div class="button-wrapper">
+                <button class="button button--primary   js-touchable qa-button">
+                    <div class="button__content"><span class="button__text">{{alang[190].text}}</span></div><span class="button__loader"><i class="icon-svg icon-svg--stretch"><svg class="icon-svg_ icon-svg__inactive"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#loader"></use></svg></i></span></button>
+                <button class="inline-button inline-button--primary inline-button--sm"><span class="inline-button__text">{{alang[191].text}}</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tabs tabs-top visible" style="background: #fff;border-color: #fff">
+    <div class="tab js-contact-list-folders__item {{tab1}}" ng-model="tabALL" ng-click="onTabShow(1)" >
+        <div class="tab__label">{{alang[192].text}}</div>
+    </div>
+    <div class="tab js-contact-list-folders__item {{tab2}}" ng-model="tabUNREAD" ng-click="onTabShow(2)">
+        <div class="tab__label">{{alang[193].text}}</div>
+    </div>
+    <div class="tab js-contact-list-folders__item {{tab3}}" ng-model="tabONLINE" ng-click="onTabShow(3)">
+        <div class="tab__label">{{alang[194].text}}</div>
+    </div>                         
+</div>
+<ion-content style="background:#fff" scroll="true" delegate-handle="userMessageScroll">
+
+    <div class="page matches visible" style="z-index: 700;margin-top:40px">
+        <div class="folder-view">
+        <!--
+            <div class="contact-list-search"><i class="icon-svg contact-list-search__icon ion-ios-search-strong" style="font-size: 19px"></i>
+                <input type="search" ng-change="srchchange()" ng-model="adn.item" placeholder="Buscar por nombre" class="font-base2 contact-list-search__input"
+                ng-focus="searchFocused = true"
+                ng-blur="searchFocused = false" />
+                <span class="font-base2 contact-list-search__cancel" ng-if="searching">Cancelar</span>
+            </div>
+            -->
+            <div class="contact-list">
+                <div class="contact-list__promos" ng-if="!searching">
+                    <div class="contact-list__promos_ js-contact-list__promos">
+                    	<div class="feature-card qa-feature-card js-click-action js-feature-card" >
+                            <div class="feature-card__promo">
+                                <div class="brick-group">
+                                    <div class="brick">
+                                        <div class="brick__image"><img src="{{me.profile_photo}}"></div>
+                                        <div class="spotlight-ripple"></div>
+
+                                   </div>                                 
+                                </div>
+                            </div>
+                            <div class="feature-card__content">
+                                <div class="feature-card__title">{{alang[195].text}} Montevideo</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-card qa-feature-card js-click-action js-feature-card" ng-if="!searching">
+                            <div class="feature-card__promo">
+                                <div class="brick-group">
+                                    <div class="brick">
+                                        <div class="brick__image">
+                                           <img src="img/showyou.png"></img>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="feature-card__content">
+                                <div class="feature-card__title">{{alang[196].text}}</div>
+                                <div class="feature-card__text">¡{{alang[197].text}}!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ion-list  can-swipe="listCanSwipe" delegate-handle="chat-list" scroll="true">
+       
+					<ion-item style="border:none" ng-repeat="p in matches track by $index" ng-if="all" ng-show="$index < loadM"  nav-transition="none" ng-click="changePage('home.messaging','left',p)"> 
+					               
+		                <div class="contact-list__contacts">
+		                    <div class="contact-list-item js-contact-list-item">
+		                        <div class="brick contact-list-item__userpic">
+		                            <div class="brick__image"><img src="{{p.photo}}" alt=""></img></div>
+		                            <span class="mark mark--blue mark--br js-mark" ng-if="p.unreadCount > 0">{{p.unreadCount}}</span>                                 
+		                        </div>
+		                        <div class="contact-list-item__preview">
+		                            <div class="contact-list-item__name"><b class="contact-list-item__name_">{{p.name}}</b>
+		                            <i class="online-status online-status--online" ng-if="p.status == 1"></i></div>
+		                            <div class="contact-list-item__message">{{p.last_m}} </div>
+		                        </div>
+                                <img src="img/vote-match.png" ng-if="p.match == 1"
+                                 style="margin-right:5px;width:18px;border-radius: 50%;">
+                                <img src="img/vip.png" ng-if="p.premium == 1" style="width:20px;border-radius: 50%;border:1px solid #FFE54F">                                 
+		                    </div>
+		                </div>
+						<ion-option-button class="button-positive button-chat-delete"
+										   ng-click="onItemDelete(p);matches.splice($index, 1)">
+						 <i class="icon ion-ios-trash" style="width:50px"></i>
+						</ion-option-button>							  
+					</ion-item>
+
+					<ion-item style="border:none" ng-repeat="p in matches track by $index" ng-if="p.unread == 3 && unread" ng-show="$index < loadM"  nav-transition="none" ng-click="changePage('home.messaging','left',p)"> 
+					               
+		                <div class="contact-list__contacts">
+                            <div class="contact-list-item js-contact-list-item">
+                                <div class="brick contact-list-item__userpic">
+                                    <div class="brick__image"><img src="{{p.photo}}" alt=""></img></div>
+                                    <span class="mark mark--blue mark--br js-mark" ng-if="p.unreadCount > 0">{{p.unreadCount}}</span>                                 
+                                </div>
+                                <div class="contact-list-item__preview">
+                                    <div class="contact-list-item__name"><b class="contact-list-item__name_">{{p.name}}</b>
+                                    <i class="online-status online-status--online" ng-if="p.status == 1"></i></div>
+                                    <div class="contact-list-item__message">{{p.last_m}} </div>
+                                </div>
+                                <img src="img/vote-match.png" ng-if="p.match == 1"
+                                 style="margin-right:5px;width:18px;border-radius: 50%;">
+                                <img src="img/vip.png" ng-if="p.premium == 1" style="width:20px;border-radius: 50%;border:1px solid #FFE54F">                                 
+                            </div>
+		                </div>
+						<ion-option-button class="button-positive button-chat-delete"
+										   ng-click="onItemDelete(p);matches.splice($index, 1)">
+						 <i class="icon ion-ios-trash" style="width:50px"></i>
+						</ion-option-button>							  
+					</ion-item>
+
+					<ion-item style="border:none" ng-repeat="p in matches track by $index" ng-if="p.status == 1 && online" ng-show="$index < loadM"  nav-transition="none" ng-click="changePage('home.messaging','left',p)"> 
+					               
+                        <div class="contact-list__contacts">
+                            <div class="contact-list-item js-contact-list-item">
+                                <div class="brick contact-list-item__userpic">
+                                    <div class="brick__image"><img src="{{p.photo}}" alt=""></img></div>
+                                    <span class="mark mark--blue mark--br js-mark" ng-if="p.unreadCount > 0">{{p.unreadCount}}</span>                                 
+                                </div>
+                                <div class="contact-list-item__preview">
+                                    <div class="contact-list-item__name"><b class="contact-list-item__name_">{{p.name}}</b>
+                                    <i class="online-status online-status--online" ng-if="p.status == 1"></i></div>
+                                    <div class="contact-list-item__message">{{p.last_m}} </div>
+                                </div>
+                                <img src="img/vote-match.png" ng-if="p.match == 1"
+                                 style="margin-right:5px;width:18px;border-radius: 50%;">
+                                <img src="img/vip.png" ng-if="p.premium == 1" style="width:20px;border-radius: 50%;border:1px solid #FFE54F">                                 
+                            </div>
+                        </div>
+						<ion-option-button class="button-positive button-chat-delete"
+										   ng-click="onItemDelete(p);matches.splice($index, 1)">
+						 <i class="icon ion-ios-trash" style="width:50px"></i>
+						</ion-option-button>							  
+					</ion-item>										
+					<ion-infinite-scroll class="hidden" immediate-check="false" on-infinite="loadMore()" distance="10%">
+					</ion-infinite-scroll>	
+				</ion-list>
+
+                <div class="contact-list__loader_inline" ng-if="loader" >
+                    <div class="loader small grey centered ">
+                        <div class="first dot"></div>
+                        <div class="second dot"></div>
+                        <div class="third dot"></div>
+                    </div>
+                </div>
+                <div class="contact-list__loader_inline" ng-if="loaderMore" >
+                    <div class="loader small grey centered ">
+                        <div class="first dot"></div>
+                        <div class="second dot"></div>
+                        <div class="third dot"></div>
+                    </div>
+                </div>                
+
+             
+            </div>
+        </div>
+    </div>
+		
+  </ion-content>
+</ion-view>

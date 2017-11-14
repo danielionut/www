@@ -1,0 +1,401 @@
+<ion-view title="">
+  <ion-nav-title >
+    <div class="navigation-bar"   >
+        <div class="navigation-bar__primary">
+            <div class="navigation-bar__icon js-navigation"  ng-click="goTo('home.menu','right',true);" >
+              <i class="icon-svg ion-navicon-round" ></i>
+              <span class="navigation-bar__menu-notification" ng-if="notificationMenu"></span>
+            </div>
+        </div>
+        <div class="navigation-bar__title">
+            <div class="navigation-bar__logo" style="z-index: 999;">
+              <img src="{{logo}}" />
+            </div>
+        </div>
+        <div class="navigation-bar__secondary"></div>
+    </div>
+  </ion-nav-title>
+
+<div class="fab js-fab js-touchable fab--liked-you" ng-if="siSeMeCanta">
+    <div class="fab-likes">
+        <div class="fab-likes__icon js-likes "><img src="img/vote-crush.png" style="position:absolute;left:-10px;width:40px;top:-10px"></div>
+        <div class="fab-likes__text">5</div>
+    </div>
+</div>
+
+<div class="page mutual-attraction visible" style="z-index: 99;" ng-if="itsaMatch" >
+    <div class="page-promo-match">
+        <div class="promo-match">
+            <div class="promo-match__userpic">
+                <div class="brick brick--xlg">
+                    <div class="brick__image js-image" style="background-image: url({{cu3.photo}})"></div>
+                        <i class="icon-svg icon-svg--lg icon-svg--bc">
+                            <img src="img/icon-circle-liked-you.png" style="border: 3px solid #fff;border-radius: 50%" width="36px"></img>
+                        </i>
+                    </div>
+            </div>
+            <div class="cta-box">
+                <div class="cta-box__header qa-title">{{alang[142].text}}</div>
+                <div class="cta-box__content qa-message js-message">
+                    <b>{{alang[143].text}} {{cu3.first_name}}</b> {{alang[144].text}}<br>
+                    {{alang[160].text}}
+                </div>
+            </div>
+            <div class="promo-match__buttons">
+                <div class="promo-match__button">
+                    <div class="promo-match-button promo-match-button--sm" ng-click="goToChatGlobal('home.messaging','left',cards[0])" >
+                        <div class="promo-match-button__icon"><i class="icon-svg promo-match-button__icon_">
+                            <img src="img/goBack.png" style="width: 30px;">
+                        </i>
+                    </div>
+                        <div class="promo-match-button__label">{{alang[146].text}}</div>
+                    </div>
+                </div>
+                <div class="promo-match__button">
+                    <div class="promo-match-button promo-match-button--chat" ng-click="goToChatGlobal('home.messaging','left',cards[0])">
+                        <div class="promo-match-button__icon">
+                            <i class="icon-svg promo-match-button__icon_">
+                                <img src="img/goChat.png" style="width: 60px;">
+                            </i>
+                        </div>
+                        <div class="promo-match-button__label">{{alang[145].text}}</div>
+                    </div>
+                </div>
+                <div class="promo-match__button">
+                    <div class="promo-match-button promo-match-button--sm">
+                        <div class="promo-match-button__icon">
+                            <i class="icon-svg promo-match-button__icon_">
+                                <svg class="icon-svg_">
+                                    <img src="img/icon-circle-smiley.png" style="width: 30px;">
+                                </svg>
+                            </i>
+                        </div>
+                        <div class="promo-match-button__label">{{alang[161].text}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ion-content style="background:#fff" scroll="true" >
+<div class="page-container" >
+
+    <div class="page encounters visible" >
+        <div class="profile-parent-view">
+
+            <div class="encounters-disabled expand-filter" ng-if="!exploreResult" >
+                <div class="encounters-message">
+                    <img src="img/icon-circle-criteriaBig.png" />
+                    <h1 class="comforta" style="font-size: 20px;color:#14171b">{{alang[162].text}}</h1>
+                    <span style="color:#14171b">{{alang[163].text}}.<br>
+                    {{alang[164].text}}?</span>
+                    <button class="button button--primary   js-touchable qa-button" ng-click="goTo('home.settings','left');">
+                        <div class="button__content"><span class="button__text comforta">{{alang[165].text}}</span></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="profiles-wrapper" ng-if="exploreResult" >
+                <div class="multi-page-wrapper">
+                    <div class="multi-page-child active-profile">
+                        <div class="single-profile-view" >
+                            <div class="profile-wrapper" >
+                                <div class="profile-top-section" >
+
+                                    <div class="contact-list__loader_inline" style="top: 200px;" ng-if="loading" >
+                                        <div class="loader small grey centered ">
+                                            <div class="first dot"></div>
+                                            <div class="second dot"></div>
+                                            <div class="third dot"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="profile-top-section-inner" >
+
+                                        <div class="js-profile-actions" ng-if="!loading">
+                                            <div data-view-id="10">
+                                                <div class="profile-actions">
+                                                    <div class="profile-action js-vote-action"  ng-click="like();cardDestroyed(0,1);" ng-if="!yesVoted">
+                                                      <i class="icon-svg icon-svg--stretch">
+                                                        <img src="img/vote-yes.png"></img>
+                                                      </i>
+                                                    </div>
+                                                    <div class="profile-action js-vote-action" ng-if="yesVoted">
+                                                      <i class="icon-svg icon-svg--stretch">
+                                                        <img src="img/vote-yes-voted.png" ></img>
+                                                      </i>
+                                                    </div>
+                                                    <div class="profile-action js-vote-action" ng-click="nolike();cardDestroyed(0,1);" ng-if="!noVoted">
+                                                      <i class="icon-svg icon-svg--stretch">
+                                                        <img src="img/vote-no.png" ></img>
+                                                      </i>
+                                                    </div>
+                                                    <div class="profile-action js-vote-action" ng-if="noVoted">
+                                                      <i class="icon-svg icon-svg--stretch">
+                                                        <img src="img/vote-no-voted.png"></img>
+                                                      </i>
+                                                    </div>
+                                                    <div class="profile-action-chat js-touchable" ng-click="goToChatGlobal('home.messaging','left',cards[0])">
+                                                      <i class="icon-svg icon-svg--stretch">
+                                                        <img src="img/chat-icon.png"></img>
+                                                      </i>
+                                                    </div>
+                                                    <div class="profile-action-crush js-touchable">
+                                                      <i class="icon-svg icon-svg--stretch">
+                                                        <img src="img/gift.png"></img>
+                                                      </i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="js-photo-gallery" >
+                                                <ion-slide-box show-pager="true" class="galleryView photo-gallery" style="height: 375px;width: 375px">
+                                                    <ion-slide ng-repeat="i in cards[0].full.galleria track by $index" ng-click="goToSlide($index)" class="photo-gallery__page" style="height: 375px;width: 375px" >
+                                                        <div class="photo-gallery__item">
+                                                            <div class="multimedia">
+                                                                <div class="multimedia__image profilePhoto" style="background: url({{i.image}});">
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </ion-slide>
+                                                </ion-slide-box>                                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="profile-bottom-section">
+                                    <div>
+                                        <div class="profile-info-skeleton" ng-if="loading">
+                                            <div class="skeleton-name"></div>
+                                            <div class="skeleton-field"></div>
+                                            <div class="skeleton-field"></div>
+                                            <div class="skeleton-field"></div>
+                                            <div class="skeleton-field"></div>
+                                            <div class="skeleton-field"></div>
+                                        </div>
+                                        <div class="profile-info js-profile-info qa-profile-profile-info-wrapper" ng-if="!loading">
+                                            <div data-view-id="20">
+                                                <div class="vrt-headline">
+                                                    <div class="js-profile-info-section">
+                                                            <div class="profile-heading">
+                                                                <div class="profile-title ">
+                                                                    <div class="profile-title__user qa-headline-text">
+                                                                    <span class="profile-title__username">{{cards[0].name}}</span>
+                                                                    ,&nbsp;<span class="profile-title__age">{{cards[0].age}}</span>
+                                                                        <div class="profile-title__statuses"></div>
+                                                                    </div>
+                                                                    <div class="profile-title__actions">
+                                                                      <i class="icon-svg qa-sharing-icon-button js-sharing-icon-button">
+                                                                      <svg class="icon-svg_">
+                                                                       <img src="" />
+                                                                       </svg>
+                                                                      </i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-list-element vrt-location">
+                                                    <div class="js-profile-info-section">
+                                                        <div data-view-id="30">
+                                                            <div class="profile-section">
+                                                                <div class="profile-section__title"><i class="icon-svg"><svg class="icon-svg_"><img src="img/amex.png"></svg></i><b class="profile-section__title_">{{alang[166].text}}</b></div>
+                                                                <div class="profile-section__content is-decorated js-profile-section" ng-if="cards[0].full.city">
+                                                                    <div>{{cards[0].full.city}}</div>
+                                                                </div>
+                                                                <div class="profile-section__content is-decorated js-profile-section" ng-if="!cards[0].full.city">
+                                                                    <div>{{cards[0].full.country}}</div>
+                                                                </div>                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-list-element vrt-gifts">
+                                                    <div class="js-profile-info-section" data-view-id="43">
+                                                        <div data-view-id="42">
+                                                            <div class="profile-section">
+                                                              <div class="profile-section__title"><i class="icon-svg"><svg class="icon-svg_"><img src="img/amex.png"></img></i><b class="profile-section__title_">{{alang[167].text}}</b></div>
+<div class="profile-section__content is-decorated js-profile-section"><div class="profile-no-gifts js-send" data-id="18"><div class="profile-no-gifts__pic"><div class="gift gift--lg gift--send"><div class="gift__image"><img src="img/lips.png" alt=""></div><div class="gift__icon"></div></div></div><div class="profile-no-gifts__info">¡{{alang[169].text}}!</div></div></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-list-element vrt-popularity">
+                                                    <div class="js-profile-info-section" data-view-id="33">
+                                                        <div data-view-id="32">
+                                                            <div class="profile-section">
+                                                                <div class="profile-section__title"><i class="icon-svg"><svg class="icon-svg_"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-profile-rating"></use><img src="img/amex.png"></img></svg></i><b class="profile-section__title_">{{alang[168].text}}</b></div>
+                                                                <div class="profile-section__content is-decorated js-profile-section">
+                                                                    <div class="profile-rating js-click-action">
+                                                                        <div class="profile-rating__text">
+                                                                            <div class="js-hotness-rating-text"><b>{{cards[0].full.total_likers}}</b> {{alang[171].text}} <b>{{cards[0].full.totalLikes}}</b> {{alang[172].text}}!</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-list-element vrt-personal-info">
+                                                    <div class="js-profile-info-section" data-view-id="37">
+                                                        <div data-view-id="36">
+                                                            <div class="profile-section">
+                                                                <div class="profile-section__title"><i class="icon-svg"><svg class="icon-svg_"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-profile-about"></use><img src="img/amex.png"></img></svg></i><b class="profile-section__title_">{{alang[170].text}}</b></div>
+                                                                <div class="profile-section__content is-decorated js-profile-section">
+
+                                                                    <table class="profile-about">
+                                                                        <tbody>
+                                                                            <tr><p ng-if="cards[0].bio">
+                                                                                {{cards[0].bio}}<br><br></p>
+                                                                                <td class="profile-about__name grey2">{{alang[174].text}}</td>
+                                                                                <td class="profile-about__value">{{alang[175].text}}</td>
+                                                                            </tr>
+                                                                            <tr ng-if="cards[0].full.extended.field1">
+                                                                                <td class="profile-about__name grey2">{{alang[176].text}}</td>
+                                                                                <td class="profile-about__value">{{cards[0].full.extended.field1}}</td>
+                                                                            </tr>
+                                                                            <tr ng-if="cards[0].full.extended.field2">
+                                                                                <td class="profile-about__name grey2">{{alang[177].text}}</td>
+                                                                                <td class="profile-about__value">{{cards[0].full.extended.field2}}</td>
+                                                                            </tr>                                                                            
+                                                                            <tr ng-if="cards[0].full.extended.field6">
+                                                                                <td class="profile-about__name grey2">{{alang[178].text}}</td>
+                                                                                <td class="profile-about__value">{{cards[0].full.extended.field6}} {{cards[0].full.extended.field3}} {{cards[0].full.extended.field4}}</td>
+                                                                            </tr>
+                                                                            <tr ng-if="cards[0].full.extended.field7">
+                                                                                <td class="profile-about__name grey2">{{alang[179].text}}</td>
+                                                                                <td class="profile-about__value">{{cards[0].full.extended.field7}}</td>
+                                                                            </tr>
+                                                                            <tr ng-if="cards[0].full.extended.field9">
+                                                                                <td class="profile-about__name grey2">{{alang[180].text}}</td>
+                                                                                <td class="profile-about__value">{{cards[0].full.extended.field9}}</td>
+                                                                            </tr>
+                                                                            <tr ng-if="cards[0].full.extended.field8">
+                                                                                <td class="profile-about__name grey2">{{alang[173].text}}</td>
+                                                                                <td class="profile-about__value">{{cards[0].full.extended.field8}}</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-list-element vrt-languages">
+                                                    <div class="js-profile-info-section" data-view-id="39">
+                                                        <div data-view-id="38">
+                                                            <div class="profile-section">
+                                                                <div class="profile-section__title"><i class="icon-svg"><svg class="icon-svg_"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-profile-language"></use><img src="img/amex.png"></img></svg></i><b class="profile-section__title_">{{alang[181].text}}</b></div>
+                                                                <div class="profile-section__content is-decorated js-profile-section">
+                                                                    <div>{{cards[0].full.language}}</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-list-element vrt-verification">
+                                                    <div class="js-profile-info-section" data-view-id="41">
+                                                        <div data-view-id="40">
+                                                            <div class="profile-section" 
+                                                            ng-if="cards[0].full.extended.facebook_id > 0 || cards[0].full.extended.instagram_id || cards[0].full.extended.google_id || cards[0].full.extended.twitter_id">
+                                                                <div class="profile-section__title"><img src="img/amex.png"></img><b class="profile-section__title_">{{alang[182].text}}</b></div>
+                                                                <div class="profile-section__content is-decorated">
+                                                                    <div class="js-profile-section">
+                                                                        <div>
+                                                                            <div class="verification-options-parent-vertical" data-view-id="44">
+                                                                                <div class="verification-options verification-options--vertical qa-profile-verifications">
+                                                                                    <div class="verification-option" ng-if="cards[0].full.extended.facebook_id > 0">
+                                                                                        <div class="verification-option__icon">
+                                                                                            <div class="brick">
+                                                                                                <img src="img/icon-social-circle-facebook.png"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="verification-option__description">
+                                                                                            <div class="verification-option__message">{{alang[183].text}}</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="verification-option" ng-if="cards[0].full.extended.instagram_id">
+                                                                                        <div class="verification-option__icon">
+                                                                                            <div class="brick">
+                                                                                                <img src="img/icon-social-circle-facebook.png"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="verification-option__description">
+                                                                                            <div class="verification-option__message">{{alang[183].text}}</div>
+                                                                                        </div>
+                                                                                    </div>  
+                                                                                    <div class="verification-option" ng-if="cards[0].full.extended.twitter_id">
+                                                                                        <div class="verification-option__icon">
+                                                                                            <div class="brick">
+                                                                                                <img src="img/icon-social-circle-facebook.png"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="verification-option__description">
+                                                                                            <div class="verification-option__message">{{alang[183].text}}Verified</div>
+                                                                                        </div>
+                                                                                    </div>                                                                                                                                                                          
+                                                                                    <div class="verification-option" ng-if="cards[0].full.extended.google_id">
+                                                                                        <div class="verification-option__icon">
+                                                                                            <div class="brick">
+                                                                                                <img src="img/icon-social-circle-google.png"/>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="verification-option__description">
+                                                                                            <div class="verification-option__message">{{alang[183].text}}Verified</div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="additional-actions qa-additional-actions" ng-if="!loading">
+                                            <div class="button-wrapper">
+                                                <button class="button button--secondary  js-block-button js-touchable qa-button" data-action="BLOCK-145">
+                                                    <div class="button__content"><span class="button__text" style="color: #fff">{{alang[184].text}}</span></div></button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="somethingWrong" ng-show="false">
+                            <div class="page-content">
+                                <div class="cta-box">
+                                    <div class="cta-box__content js-error-img-section"><img src="https://m.badoo.com/img/no-sprite/raccoon.png" alt="" width="175" height="175"></div>
+                                    <div class="cta-box__header">{{alang[185].text}}!</div>
+                                    <div class="cta-box__content">{{alang[186].text}}!</div>
+                                    <div class="cta-box__buttons">
+                                        <div class="button-wrapper">
+                                            <button class="button button--primary   js-touchable qa-button" data-action="REFRESH-135">
+                                                <div class="button__content"><span class="button__text">{{alang[187].text}}</span></div><span class="button__loader"><i class="icon-svg icon-svg--stretch"><svg class="icon-svg_ icon-svg__inactive"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#loader"></use></svg></i></span></button>
+                                        </div>
+                                    </div>
+                                    <div class="cta-box__additional js-error-refresh-timer"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</ion-content>

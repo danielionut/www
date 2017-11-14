@@ -1,0 +1,313 @@
+<ion-view title="">
+  <ion-nav-title>
+    <div class="navigation-bar">
+        <div class="navigation-bar__primary" ng-click="goTo('home.menu','right');">
+            <div class="navigation-bar__icon js-navigation" >
+              <i class="icon-svg ion-navicon-round" ></i>
+              <span class="navigation-bar__menu-notification" ng-if="notificationMenu"></span>
+            </div>
+        </div>
+      <div class="navigation-bar__title comforta" data-qa="navbar-title"><span class="js-title">Profile</span></div>
+        <div class="navigation-bar__secondary">
+          
+            <div class="navigation-bar__icon js-navigation" ng-click="logout()" style="margin-right: 15px;">
+              <i class="icon-svg ion-android-exit" ></i>
+            </div>          
+        </div>
+    </div> 
+  
+</ion-nav-title>
+
+  <ion-content  delegate-handle="modalContent" scroll="true">
+    <div class="page own-profile visible" style="z-index: 600;" data-vrt-ready="true">
+
+      <div class="profiles-wrapper">
+        <div class="multi-page-wrapper">
+          <div class="multi-page-child active-profile">
+            <div class="single-profile-view" data-view-id="43">
+              <div class="profile-wrapper">
+                <div class="profile-top-section">
+                  <div class="profile-top-section-inner">
+                    <div class="js-photo-gallery">
+                      <div class="galleryView" data-view-id="50">
+                        <div class="photo-grid" data-photo-grid-rows="2">
+                          <div class="sticky-scroll js-sticky-scroller" data-view-id="80">
+                            <div class="sticky-scroll_ js-scrollable" style="transform: translate3d(0px, 0px, 0px);">
+                              <div class="photo-grid__page is-active">
+                                <div class="photo-grid__item" ng-click="uploadPhoto()">
+                                  <div class="photo-grid__tile photo-grid__tile--add-photos js-add-photos">
+                                    <div class="photo-grid__tile-content"><img src="img/add-photo.png">
+                                      <div class="photo-grid__tile-label">{{alang[217].text}}</div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- 
+                              <div class="photo-grid__item">
+                                <div class="photo-grid__tile photo-grid__tile--private js-private-photos js-private-photos-action">
+                                  <div class="photo-grid__tile-content"><img src="img/add-photo.png">
+                                    <div class="photo-grid__tile-label js-private-photos-label">Add privates photos</div>
+                                  </div>
+                                </div>
+                              </div>   -->                             
+                                <div class="photo-grid__item" ng-repeat="p in uphotos track by $index" >
+                                  <div class="photo-grid__item-image profilePhoto" ng-click="showPhotoOptions($index,p.id,p.blocked,p.profile)" style="background-image: url({{trustPhoto(p.photo)}});"></div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="paid-features-status-wrapper js-paid-features-status">
+                    <div>
+                      <div data-view-id="57" class="horizontal three">
+                        <div class="paid-features-status">
+                          <div class="paid-feature js-payment-overlay qa-paid-feature-status qa-spp" ng-click="openPremiumModal()">
+                            <div class="paid-feature__icon"><img src="img/icon-spp.png" width="30"></div>
+                            <div class="paid-feature__info">
+                              <div class="paid-feature__label qa-paid-feature-status-title">{{alang[200].text}}</div>
+                              <div class="paid-feature__value  qa-payment-feature-value">{{premium}}</div>
+                            </div>
+                          </div>
+                          <div class="paid-feature js-payment-overlay qa-paid-feature-status qa-popularity" data-feature="103">
+                            <div class="paid-feature__icon"><img src="img/icon-battery-very-low.png" width="30"></div>
+                            <div class="paid-feature__info">
+                              <div class="paid-feature__label qa-paid-feature-status-title">{{alang[201].text}}</div>
+                              <div class="paid-feature__value paid-feature__value--very-low qa-payment-feature-value">{{alang[218].text}}</div>
+                            </div>
+                          </div>
+                          <div class="paid-feature js-payment-overlay qa-paid-feature-status qa-credits" ng-click="openCreditsModal()">
+                            <div class="paid-feature__icon"><img src="img/icon-coins.png" width="30"></div>
+                            <div class="paid-feature__info">
+                              <div class="paid-feature__label qa-paid-feature-status-title">{{alang[48].text}}</div>
+                              <div class="paid-feature__value qa-payment-feature-value">{{credits}}</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-bottom-section">
+                
+    <div class="list m-n">
+
+      <div class="item comforta" >
+      <span >{{alang[158].text}}</span>
+    <input style="font-size:16px;display:inline-table;border:none;background:none;float:right;text-align:right;" class="comforta" id="userName" value="{{name}}"/>
+      </div>
+    
+      <div class="item comforta" >
+      <span>{{alang[219].text}}</span>
+    <input style="margin:0;padding:0;font-size:16px;display:inline-table;border:none;background:none;float:right;text-align:right;"  id="userAge" value="{{age}}"/>
+      </div>
+
+      <div class="item item-toggle comforta" ng-click="updateUserGender()">
+      <span data-tid="112">{{alang[90].text}}</span>
+    <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <span>{{gender}}</span>
+    </label>
+      </div>
+    
+      <div class="item item-toggle comforta"  ng-click="updateExtended(1)" >
+      <span data-lid="223"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;" >
+      <select id="ex1"  ng-if="ex1 == null" ng-model="extended" ng-change="showSelectValue(extended,1)" >
+        <option ng-repeat="o in extended1">{{o}}</option>
+      </select>
+      <span ng-if="ex1 != null" >{{ex1}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(2)">
+    <span data-lid="227"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex2 == null" ng-model="extended2" ng-change="showSelectValue(extended2,2)" >
+        <option ng-repeat="o in extended2 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex2 != null">{{ex2}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(3)">
+    <span data-lid="232"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex3 == null" ng-model="extended3" ng-change="showSelectValue(extended3,3)" >
+        <option ng-repeat="o in extended3 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex3 != null"  ng-bind-html="ex3 | nl2br">{{ex3}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(4)">
+    <span data-lid="235"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex4 == null" ng-model="extended4" ng-change="showSelectValue(extended4,4)" >
+        <option value="88 lbs (40kg)">88 lbs (40kg)</option>  
+        <option value="90 lbs (41kg)">90 lbs (41kg)</option>  
+        <option value="93 lbs (42kg)">93 lbs (42kg)</option>  
+        <option value="95 lbs (43kg)">95 lbs (43kg)</option>  
+        <option value="97 lbs (44kg)">97 lbs (44kg)</option>  
+        <option value="99 lbs (45kg)">99 lbs (45kg)</option>  
+        <option value="101 lbs (46kg)">101 lbs (46kg)</option>  
+        <option value="104 lbs (47kg)">104 lbs (47kg)</option>  
+        <option value="106 lbs (48kg)">106 lbs (48kg)</option>  
+        <option value="108 lbs (49kg)">108 lbs (49kg)</option>  
+        <option value="110 lbs (50kg)">110 lbs (50kg)</option>  
+        <option value="112 lbs (51kg)">112 lbs (51kg)</option>  
+        <option value="115 lbs (52kg)">115 lbs (52kg)</option>  
+        <option value="117 lbs (53kg)">117 lbs (53kg)</option>  
+        <option value="119 lbs (54kg)">119 lbs (54kg)</option>  
+        <option value="121 lbs (55kg)">121 lbs (55kg)</option>  
+        <option value="123 lbs (56kg)">123 lbs (56kg)</option>  
+        <option value="126 lbs (57kg)">126 lbs (57kg)</option>  
+        <option value="128 lbs (58kg)">128 lbs (58kg)</option>  
+        <option value="130 lbs (59kg)">130 lbs (59kg)</option>  
+        <option value="132 lbs (60kg)">132 lbs (60kg)</option>  
+        <option value="134 lbs (61kg)">134 lbs (61kg)</option>  
+        <option value="137 lbs (62kg)">137 lbs (62kg)</option>  
+        <option value="139 lbs (63kg)">139 lbs (63kg)</option>  
+        <option value="141 lbs (64kg)">141 lbs (64kg)</option>  
+        <option value="143 lbs (65kg)">143 lbs (65kg)</option>  
+        <option value="145 lbs (66kg)">145 lbs (66kg)</option>  
+        <option value="148 lbs (67kg)">148 lbs (67kg)</option>  
+        <option value="150 lbs (68kg)">150 lbs (68kg)</option>  
+        <option value="152 lbs (69kg)">152 lbs (69kg)</option>  
+        <option value="154 lbs (70kg)">154 lbs (70kg)</option>  
+        <option value="156 lbs (71kg)">156 lbs (71kg)</option>  
+        <option value="159 lbs (72kg)">159 lbs (72kg)</option>  
+        <option value="161 lbs (73kg)">161 lbs (73kg)</option>  
+        <option value="163 lbs (74kg)">163 lbs (74kg)</option>  
+        <option value="165 lbs (75kg)">165 lbs (75kg)</option>  
+        <option value="167 lbs (76kg)">167 lbs (76kg)</option>  
+        <option value="170 lbs (77kg)">170 lbs (77kg)</option>  
+        <option value="172 lbs (78kg)">172 lbs (78kg)</option>  
+        <option value="174 lbs (79kg)">174 lbs (79kg)</option>  
+        <option value="176 lbs (80kg)">176 lbs (80kg)</option>  
+        <option value="178 lbs (81kg)">178 lbs (81kg)</option>  
+        <option value="181 lbs (82kg)">181 lbs (82kg)</option>  
+        <option value="183 lbs (83kg)">183 lbs (83kg)</option>  
+        <option value="185 lbs (84kg)">185 lbs (84kg)</option>  
+        <option value="187 lbs (85kg)">187 lbs (85kg)</option>  
+        <option value="189 lbs (86kg)">189 lbs (86kg)</option>  
+        <option value="192 lbs (87kg)">192 lbs (87kg)</option>  
+        <option value="194 lbs (88kg)">194 lbs (88kg)</option>  
+        <option value="196 lbs (89kg)">196 lbs (89kg)</option>  
+        <option value="198 lbs (90kg)">198 lbs (90kg)</option>  
+        <option value="200 lbs (91kg)">200 lbs (91kg)</option>  
+        <option value="203 lbs (92kg)">203 lbs (92kg)</option>  
+        <option value="205 lbs (93kg)">205 lbs (93kg)</option>  
+        <option value="207 lbs (94kg)">207 lbs (94kg)</option>  
+        <option value="209 lbs (95kg)">209 lbs (95kg)</option>  
+        <option value="211 lbs (96kg)">211 lbs (96kg)</option>  
+        <option value="214 lbs (97kg)">214 lbs (97kg)</option>
+        <option value="216 lbs (98kg)">216 lbs (98kg)</option>
+        <option value="218 lbs (99kg)">218 lbs (99kg)</option>
+        <option value="220 lbs (100kg)">220 lbs (100kg)</option>
+        <option value="222 lbs (101kg)">222 lbs (101kg)</option>
+        <option value="225 lbs (102kg)">225 lbs (102kg)</option>
+        <option value="227 lbs (103kg)">227 lbs (103kg)</option>
+        <option value="229 lbs (104kg)">229 lbs (104kg)</option>
+        <option value="231 lbs (105kg)">231 lbs (105kg)</option>
+        <option value="233 lbs (106kg)">233 lbs (106kg)</option>
+        <option value="236 lbs (107kg)">236 lbs (107kg)</option>
+        <option value="238 lbs (108kg)">238 lbs (108kg)</option>
+        <option value="240 lbs (109kg)">240 lbs (109kg)</option>
+        <option value="242 lbs (110kg)">242 lbs (110kg)</option>
+        <option value="244 lbs (111kg)">244 lbs (111kg)</option>
+        <option value="247 lbs (112kg)">247 lbs (112kg)</option>
+        <option value="249 lbs (113kg)">249 lbs (113kg)</option>
+        <option value="251 lbs (114kg)">251 lbs (114kg)</option>
+        <option value="253 lbs (115kg)">253 lbs (115kg)</option>
+        <option value="255 lbs (116kg)">255 lbs (116kg)</option>
+        <option value="258 lbs (117kg)">258 lbs (117kg)</option>
+        <option value="260 lbs (118kg)">260 lbs (118kg)</option>
+        <option value="262 lbs (119kg)">262 lbs (119kg)</option>
+      </select>
+      <span ng-if="ex4 != null">{{ex4}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(5)">
+    <span data-lid="236"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex5 == null" ng-model="extended5" ng-change="showSelectValue(extended5,5)" >
+        <option ng-repeat="o in extended5 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex5 != null">{{ex5}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(6)">
+    <span data-lid="246"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex6 == null" ng-model="extended6" ng-change="showSelectValue(extended6,6)" >
+        <option ng-repeat="o in extended6 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex6 != null">{{ex6}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(7)">
+    <span data-lid="252"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex7 == null" ng-model="extended7" ng-change="showSelectValue(extended7,7)" >
+        <option ng-repeat="o in extended7 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex7 != null">{{ex7}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(8)">
+    <span data-lid="258"></span>
+    
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex8 == null" ng-model="extended8" ng-change="showSelectValue(extended8,8)" >
+        <option ng-repeat="o in extended8 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex8 != null">{{ex8}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(9)">
+    <span data-lid="262"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex9 == null" ng-model="extended9" ng-change="showSelectValue(extended9,9)" >
+        <option ng-repeat="o in extended9 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex9 != null">{{ex9}}</span>
+        </label>
+      </div>
+    
+      <div class="item item-toggle comforta" ng-click="updateExtended(10)">
+    <span data-lid="263"></span>
+        <label class="toggle comforta" style="font-size:16px;top:14px;">
+      <select  ng-if="ex10 == null" ng-model="extended10" ng-change="showSelectValue(extended10,10)" >
+        <option ng-repeat="o in extended10 track by $index">{{o}}</option>
+      </select>
+      <span ng-if="ex10 != null">{{ex10}}</span>
+        </label>
+      </div>
+
+    </div>  
+  
+    <div class="list m-n">
+      <div class="item item-divider b-none"></div>
+      <div class="item item-divider b-none comforta" data-tid="100">{{alang[220].text}}</div>
+      <div class="item comforta">
+        <textarea id="userBio" style="width:100%;font-size:16px;" class="comforta">{{bio}}</textarea>
+      </div>
+    </div>              
+              </div>
+            </div>
+            <div class="js-fab-container"></div>
+          </div>
+        </div>
+    <div flow-init
+         flow-name="uploader.flow"
+         flow-files-added="processFiles($files)">
+      <button flow-btn type="file" id="uploadRegPhoto" style="display: none;">{{alang[221].text}}</button>
+     </div>        
+      </ion-content>
